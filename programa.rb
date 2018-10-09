@@ -1,48 +1,30 @@
-require_relative "curso"
-require_relative "modulo"
-require_relative "disciplina"
-require_relative "professor"
-require_relative "aluno"
-require_relative "matricula"
+require_relative "data_builder"
 
-ads = Curso.new "ADS"
-modulo = Modulo.new "Modulo 4", ads
-ltp_quatro = Disciplina.new "LTP4"
-agil = Disciplina.new "Agil"
-redes = Disciplina.new "Redes"
+builder = DataBuilder.new.build_data
 
-anderson = Professor.new "Anderson"
-leo = Professor.new "Leo"
+unifeob = builder.unifeob
+ads = builder.ads
+modulo_quatro = builder.modulo_quatro
+ltp = builder.ltp
+agil = builder.agil
+redes = builder.redes
+felipe = builder.felipe
+jair = builder.jair
 
-ltp_quatro.add_professor anderson
-ltp_quatro.add_professor leo
-redes.add_professor leo
+builder.add_matricula felipe, ads, modulo_quatro, ltp
+builder.add_matricula felipe, ads, modulo_quatro, agil
+builder.add_matricula felipe, ads, modulo_quatro, redes
+builder.add_matricula jair, ads, modulo_quatro, ltp
+builder.add_matricula jair, ads, modulo_quatro, agil
+builder.add_matricula jair, ads, modulo_quatro, redes
 
-leo.add_disciplina ltp_quatro
-leo.add_disciplina redes
-anderson.add_disciplina ltp_quatro
+builder.add_media felipe, ads, modulo_quatro, ltp, 7.5
+builder.add_media felipe, ads, modulo_quatro, agil, 6.3
+builder.add_media felipe, ads, modulo_quatro, redes, 9.0
+builder.add_media jair, ads, modulo_quatro, ltp, 10.0
+builder.add_media jair, ads, modulo_quatro, agil, 10.0
+builder.add_media jair, ads, modulo_quatro, redes, 3.0
 
-#Adicionar Modulo no Curso
-modulo.add_disciplina ltp_quatro
-modulo.add_disciplina agil
-modulo.add_disciplina redes
-
-ltp_quatro.add_modulo modulo
-agil.add_modulo modulo
-redes.add_modulo modulo
-
-ads.add_modulo(modulo)
-
-felipe = Aluno.new "Felipe"
-jair = Aluno.new "Jair"
-
-matriculas = []
-matriculas << Matricula.new(felipe, ads, modulo, ltp_quatro)
-matriculas << Matricula.new(felipe, ads, modulo, agil)
-matriculas << Matricula.new(felipe, ads, modulo, redes)
-
-matriculas << Matricula.new(jair, ads, modulo, ltp_quatro)
-matriculas << Matricula.new(jair, ads, modulo, agil)
-matriculas << Matricula.new(jair, ads, modulo, redes)
-
-p matriculas
+puts unifeob.media_do_curso ads
+puts unifeob.media_da_disciplina ltp
+puts unifeob.media_do_modulo_e_disciplina modulo_quatro, ltp
